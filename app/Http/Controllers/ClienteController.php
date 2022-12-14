@@ -3,28 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    private $cliente;
-
-    public function __construct()
-    {
-        $this->cliente = new Cliente();
-    }
-
     public function  index(){
-        return view('clientes',['clientes'=>$this->cliente->all()]);
+        $modelCliente = new Cliente();
+        $clientes = $modelCliente->all();
+        return view('pages.cliente.index',
+        ['clientes' => $clientes]);
     }
 
     public function show($id){
-        return view('cliente',['cliente'=>$this->cliente->find($id)]);
+        return view('pages.cliente.single',['cliente' => Cliente::find($id)]);
     }
 
     public function create(){
-        return view('cliente_create');
+        return view('pages.cliente.create');
     }
 
     public function store(Request $request){
@@ -43,12 +38,11 @@ class ClienteController extends Controller
     }
 
     public function edit($id){
-        $data = ['cliente' => Cliente::find($id)];
-        return view('cliente_edit', $data);
+        return view('pages.cliente.edit', ['cliente' => Cliente::find($id)]);
     }
 
     public function delete($id){
-        return view('cliente_remove',['cliente'=>Cliente::find($id)]);
+        return view('pages.cliente.delete',['cliente'=>Cliente::find($id)]);
     }
 
     public function remove(Request $request, $id){

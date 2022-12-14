@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Clientes</title>
-</head>
-<body>
+<x-main-layout>
     @if ($cliente)
         <h1>{{ $cliente->nome }}</h1>
         <ul>
@@ -31,5 +22,4 @@
         <p>Clientes não encontrados! </p>
         <a href="/clientes">&#9664;Voltar</a>
     @endif
-</body>
-</html>
+</x-main-layout>
