@@ -25,7 +25,7 @@ class ClienteController extends Controller
     public function store(Request $request){
         $newCliente = $request->all();
         if(Cliente::create($newCliente))
-            return redirect('/clientes');
+            return redirect('/dashboard');
         else
             dd("Erro ao inserir cliente!");  
     }

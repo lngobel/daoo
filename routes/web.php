@@ -1,10 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EntregadorController;
 use App\Http\Controllers\VeiculoController;
+use App\Models\Cliente;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,33 +24,86 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/ola', [HomeController::class,'index']); 
+Route::get('/dashboard', function () {
+    return view('dashboard',
+                ['clientes'=>Cliente::all(),
+                'users'=>User::all()]);
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/dashboard/cliente/{id}', function ($id) {
+    return view('pages.cliente.single-dash',['cliente'=>Cliente::find($id) ]);
+})->middleware(['auth', 'verified'])->name('cliente.single-dash');
 
-Route::get('/clientes', [ClienteController::class,'index']); 
-Route::get('/clientes/{id}',[ClienteController::class,'show']);
-Route::get('/criarCliente', [ClienteController::class,'create']);
-Route::post('/criarCliente', [ClienteController::class,'store']);
-Route::get('/cliente/{id}/edit', [ClienteController::class,'edit'])->name('editCli');
-Route::post('/cliente/{id}/update', [ClienteController::class,'update'])->name('updateCli');
-Route::get('/cliente/{id}/delete', [ClienteController::class,'delete'])->name('deleteCli');
-Route::post('/cliente/{id}/delete', [ClienteController::class,'remove'])->name('removeCli');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/entregadores', [EntregadorController::class,'index']); 
-Route::get('/entregadores/{id}', [EntregadorController::class,'show']); 
-Route::get('/criarEntregador', [EntregadorController::class,'create']);
-Route::post('/criarEntregador', [EntregadorController::class,'store']);
-Route::get('/entregador/{id}/edit', [EntregadorController::class,'edit'])->name('editEnt');
-Route::post('/entregador/{id}/update', [EntregadorController::class,'update'])->name('updateEnt');
-Route::get('/entregador/{id}/delete', [EntregadorController::class,'delete'])->name('deleteEnt');
-Route::post('/entregador/{id}/delete', [EntregadorController::class,'remove'])->name('removeEnt');
+require __DIR__.'/auth.php';
 
-Route::get('/veiculos', [VeiculoController::class,'index']); 
-Route::get('/veiculos/{id}', [VeiculoController::class,'show']);
-Route::get('/criarVeiculo', [VeiculoController::class,'create']);
-Route::post('/criarVeiculo', [VeiculoController::class,'store']);
-Route::get('/veiculo/{id}/edit', [VeiculoController::class,'edit'])->name('editVei');
-Route::post('/veiculo/{id}/update', [VeiculoController::class,'update'])->name('updateVei');
-Route::get('/veiculo/{id}/delete', [VeiculoController::class,'delete'])->name('deleteVei');
-Route::post('/veiculo/{id}/delete', [VeiculoController::class,'remove'])->name('removeVei');
+Route::controller(ClienteController::class)
+    ->group(function () {
 
+        Route::prefix('/clientes')->group(function () {
+            Route::get('/', 'index')->name('clientes');
+            Route::get('/{id}', 'show');
+        });
+
+        Route::prefix('/cliente')
+            ->middleware('auth')
+            ->group(function () {
+                Route::get('/', 'create');
+                Route::post('/', 'store');
+
+                Route::get('/{id}/edit', 'edit')->name('editCli');
+                Route::post('/{id}/update', 'update')->name('updateCli');
+
+                Route::get('/{id}/delete', 'delete')->name('deleteCli');
+                Route::post('/{id}/remove', 'remove')->name('removeCli');
+            });
+    });
+
+    Route::controller(EntregadorController::class)
+    ->group(function () {
+
+        Route::prefix('/entregadores')->group(function () {
+            Route::get('/', 'index')->name('entregadores');
+            Route::get('/{id}', 'show');
+        });
+
+        Route::prefix('/entregador')
+            ->middleware('auth')
+            ->group(function () {
+                Route::get('/', 'create');
+                Route::post('/', 'store');
+
+                Route::get('/{id}/edit', 'edit')->name('editEnt');
+                Route::post('/{id}/update', 'update')->name('updateEnt');
+
+                Route::get('/{id}/delete', 'delete')->name('deleteEnt');
+                Route::post('/{id}/remove', 'remove')->name('removeEnt');
+            });
+    });
+
+    Route::controller(VeiculoController::class)
+    ->group(function () {
+
+        Route::prefix('/veiculos')->group(function () {
+            Route::get('/', 'index')->name('veiculos');
+            Route::get('/{id}', 'show');
+        });
+
+        Route::prefix('/veiculo')
+            ->middleware('auth')
+            ->group(function () {
+                Route::get('/', 'create');
+                Route::post('/', 'store');
+
+                Route::get('/{id}/edit', 'edit')->name('editVei');
+                Route::post('/{id}/update', 'update')->name('updateVei');
+
+                Route::get('/{id}/delete', 'delete')->name('deleteVei');
+                Route::post('/{id}/remove', 'remove')->name('removeVei');
+            });
+    });
