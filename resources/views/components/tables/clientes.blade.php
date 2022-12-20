@@ -7,7 +7,9 @@
             <th>CPF</th>
             <th>Email</th>
             <th>Foto</th>
-            <th>Status</th>
+            @if(Auth::user() && Route::is('dashboard'))
+                <th>Ações</th>
+            @endif
         </tr>
     </thead>
     <tbody>

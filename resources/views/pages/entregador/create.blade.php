@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Inserir novo entregador</h1>
-    <form action="/criarEntregador" method="POST">
+<x-dash-layout>
+<h2 class='text-4xl'>Inserir Novo Entregador</h2>
+    <form action="/entregador" method="POST">
         @csrf
         {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"/> --}}
         <table>
@@ -43,6 +33,4 @@
             </tr>
         </table>
     </form>
-</body>
-
-</html>
+</x-dash-layout>

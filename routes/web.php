@@ -69,7 +69,7 @@ Route::controller(ClienteController::class)
 
         Route::prefix('/entregadores')->group(function () {
             Route::get('/', 'index')->name('entregadores');
-            Route::get('/{id}', 'show');
+            Route::get('/{id}', 'show')->name('entregador.single-dash');
         });
 
         Route::prefix('/entregador')
@@ -91,7 +91,7 @@ Route::controller(ClienteController::class)
 
         Route::prefix('/veiculos')->group(function () {
             Route::get('/', 'index')->name('veiculos');
-            Route::get('/{id}', 'show');
+            Route::get('/{id}', 'show')->name('veiculo.single-dash');
         });
 
         Route::prefix('/veiculo')

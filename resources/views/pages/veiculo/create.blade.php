@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Inserir novo veiculo</h1>
-    <form action="/criarVeiculo" method="POST">
+<x-dash-layout>
+    <h2 class='text-4xl'>Inserir Novo Veículo</h2>
+    <form action="/vxeiculo" method="POST">
         @csrf
         {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"/> --}}
         <table>
@@ -35,6 +25,4 @@
             </tr>
         </table>
     </form>
-</body>
-
-</html>
+</x-dash-layout>

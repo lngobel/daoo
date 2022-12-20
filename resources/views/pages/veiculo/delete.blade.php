@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Veiculos</title>
-</head>
-<body>
+<x-dash-layout>
+    <h2 class='text-4xl'>Deletar Veículo</h2>
     @if ($veiculo)
         <h1>{{ $veiculo->placa }}</h1>
         <ul>
@@ -27,7 +19,6 @@
         </form>
     @else
         <p>Veículos não encontrados! </p>
-        <a href="/veiculos">&#9664;Voltar</a>
     @endif
-</body>
-</html>
+    <a href="/veiculos">Cancelar</a>
+    </x-dash-layout>

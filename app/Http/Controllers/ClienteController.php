@@ -34,7 +34,7 @@ class ClienteController extends Controller
         $updatedCliente = $request->all();
         if(!Cliente::find($id)->update($updatedCliente))
             dd("Erro ao atualizar cliente");
-        return redirect('/clientes');
+        return redirect('/dashboard');
     }
 
     public function edit($id){
@@ -49,6 +49,6 @@ class ClienteController extends Controller
         if($request->confirmar==="Deletar")
             if(!Cliente::destroy($id))
                 dd("Erro ao deletar o cliente $id!");
-        return redirect('/clientes');
+        return redirect('/dashboard');
     }
 }

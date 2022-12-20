@@ -1,5 +1,5 @@
-<x-main-layout>
-    <h1>Inserir Novo Cliente</h1>
+<x-dash-layout>
+    <h2 class='text-4xl'>Inserir Novo Cliente</h2>
     <form id=create action="/cliente" method="POST">
         @csrf
         {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"/> --}}
@@ -25,4 +25,4 @@
     </form>
     
     <a href="/dashboard"><button>Cancelar</button></a>
-</x-main-layout>
+</x-dash-layout>

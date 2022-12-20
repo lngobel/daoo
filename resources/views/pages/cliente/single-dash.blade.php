@@ -15,8 +15,8 @@
                     <td>{{ $cliente->email }}</td>
                 </tr>
                 <tr>
-                    <th>Status</th>
-                    {{-- <td>{{ $cliente->status ? 'On' : 'Off' }}</td> --}}
+                    <th>Foto</th>
+                    <td>{{ $cliente->foto }}</td>
                 </tr>
             </tbody>
         </table>

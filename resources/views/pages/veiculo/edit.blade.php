@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Editar veículo</h1>
+<x-dash-layout>
+    <h2 class='text-4xl'>Editar Veículo</h2>
     <form action="{{route('updateVei',$veiculo->id)}}" method="POST">
         @csrf
         <table>
@@ -34,5 +24,4 @@
         </table>
     </form>
     <a href="/veiculos"><button>Cancelar</button></a>
-</body>
-</html>
+</x-dash-layout>

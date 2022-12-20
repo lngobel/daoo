@@ -15,7 +15,7 @@ class EntregadorController extends Controller
     }
 
     public function show($id){
-        return view('pages.entregador.single',['entregador' => Entregador::find($id)]);
+        return view('pages.entregador.single-dash',['entregador' => Entregador::find($id)]);
     }
 
     public function create(){
@@ -34,7 +34,7 @@ class EntregadorController extends Controller
         $updatedEntregador = $request->all();
         if(!Entregador::find($id)->update($updatedEntregador))
             dd("Erro ao atualizar entregador");
-        return redirect('/entregador');
+        return redirect('/entregadores');
     }
 
     public function edit($id){

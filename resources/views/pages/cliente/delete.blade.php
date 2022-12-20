@@ -1,4 +1,5 @@
-<x-main-layout>
+<x-dash-layout>
+    <h2 class='text-4xl'>Deletar Cliente</h2>
     @if ($cliente)
         <h1>{{ $cliente->nome }}</h1>
         <ul>
@@ -13,13 +14,12 @@
                 <tr align="center">
                     <td colspan="2">
                         <input type="submit" name='confirmar' value="Deletar"/>
-                        <input type="submit" name='confirmar' value="Cancelar"/>
                     </td>
                 </tr>
             </table>
         </form>
     @else
         <p>Clientes não encontrados! </p>
-        <a href="/clientes">&#9664;Voltar</a>
     @endif
-</x-main-layout>
+    <a href="/dashboard">Cancelar</a>
+</x-dash-layout>

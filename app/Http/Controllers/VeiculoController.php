@@ -7,23 +7,19 @@ use Illuminate\Http\Request;
 
 class VeiculoController extends Controller
 {
-    private $veiculo;
-
-    public function __construct()
-    {
-        $this->veiculo = new Veiculo();
-    }
-
     public function  index(){
-        return view('veiculos',['veiculos'=>$this->veiculo->all()]);
+        $modelVeiculo = new Veiculo();
+        $veiculos = $modelVeiculo->all();
+        return view('pages.veiculo.index',
+        ['veiculos' => $veiculos]);
     }
 
     public function show($id){
-        return view('veiculo',['veiculo'=>$this->veiculo->find($id)]);
+        return view('pages.veiculo.single-dash',['veiculo' => Veiculo::find($id)]);
     }
 
     public function create(){
-        return view('veiculo_create');
+        return view('pages.veiculo.create');
     }
 
     public function store(Request $request){
@@ -31,7 +27,7 @@ class VeiculoController extends Controller
         if(Veiculo::create($newVeiculo))
             return redirect('/veiculos');
         else
-            dd("Erro ao inserir veículo!");  
+            dd("Erro ao inserir veiculo!"); 
     }
 
     public function update(Request $request, $id){
@@ -42,12 +38,11 @@ class VeiculoController extends Controller
     }
 
     public function edit($id){
-        $data = ['veiculo' => Veiculo::find($id)];
-        return view('veiculo_edit', $data);
+        return view('pages.veiculo.edit', ['veiculo' => Veiculo::find($id)]);
     }
 
     public function delete($id){
-        return view('veiculo_remove',['veiculo'=>Veiculo::find($id)]);
+        return view('pages.veiculo.delete',['veiculo'=>Veiculo::find($id)]);
     }
 
     public function remove(Request $request, $id){
