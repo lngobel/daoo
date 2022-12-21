@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     public function  index(){
-        $modelCliente = new Cliente();
-        $clientes = $modelCliente->all();
-        return view('pages.cliente.index',
-        ['clientes' => $clientes]);
+        return view('pages.cliente.index');
     }
 
     public function show($id){
