@@ -14,13 +14,17 @@
             <table>
                 <tr align="center">
                     <td colspan="2">
+                    <x-danger-button>
                         <input type="submit" name='confirmar' value="Deletar"/>
+                    </x-danger-button>
                     </td>
                 </tr>
             </table>
         </form>
     @else
         <p>Entregadores não encontrados! </p>
-        <a href="/entregadores">Cancelar</a>
     @endif
+    <x-secondary-button>
+        <a href="/entregadores">Cancelar</a>
+    </x-secondary-button>
 </x-dash-layout>

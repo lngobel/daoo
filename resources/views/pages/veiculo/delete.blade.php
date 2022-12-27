@@ -12,7 +12,9 @@
             <table>
                 <tr align="center">
                     <td colspan="2">
-                        <input type="submit" name='confirmar' value="Deletar"/>
+                    <x-danger-button>
+                    <input type="submit" name='confirmar' value="Deletar"/>
+                    </x-danger-button>
                     </td>
                 </tr>
             </table>
@@ -20,5 +22,7 @@
     @else
         <p>Veículos não encontrados! </p>
     @endif
-    <a href="/veiculos">Cancelar</a>
+    <x-secondary-button>
+        <a href="/veiculos">Cancelar</a>
+    </x-secondary-button>
     </x-dash-layout>

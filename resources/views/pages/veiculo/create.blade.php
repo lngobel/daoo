@@ -1,6 +1,6 @@
 <x-dash-layout>
     <h2 class='text-4xl'>Inserir Novo Veículo</h2>
-    <form action="/vxeiculo" method="POST">
+    <form action="/veiculo" method="POST">
         @csrf
         {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"/> --}}
         <table>
