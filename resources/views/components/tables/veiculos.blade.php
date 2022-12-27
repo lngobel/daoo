@@ -5,6 +5,7 @@
             <tr>
                 <th><a href="#" wire:click="orderBy">Id</a></th>
                 <th><a href="#" wire:click="orderByPlaca">Placa</a></th>
+                <th>Id Entregador</th>
                 <th>Renavam</th>
                 <th>Vencimento Doc.</th>
                 @if(Auth::user() && Route::is('veiculos'))
@@ -18,9 +19,11 @@
                     @if(Auth::user() && Route::is('veiculos'))
                         <td><a href="{{ route('veiculo.single-dash',$veiculo->id) }}">{{ $veiculo->id }}</a></td>
                         <td><a href="{{ route('veiculo.single-dash',$veiculo->id) }}">{{ $veiculo->placa }}</a></td>
+                        <td><a href="{{ route('entregador.single-dash',$veiculo->entregador_id) }}">{{ $veiculo->entregador_id }}</a></td>
                     @else
                         <td><a href="/veiculos/{{ $veiculo->id }}">{{ $veiculo->id }}</a></td>
                         <td><a href="/veiculos/{{ $veiculo->id }}">{{ $veiculo->placa }}</a></td>
+                        <td><a href="/entregadores/{{ $veiculo->entregador_id }}">{{ $veiculo->entregador_id }}</a></td>
                     @endif
                     <td>{{ $veiculo->renavam }}</td>
                     <td>{{ $veiculo->vencimento_doc }}</td>

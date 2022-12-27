@@ -22,10 +22,14 @@
 
             <tr align="center">
                 <td colspan="2">
+                    <x-primary-button>
                     <input type="submit" name='confirmar' value="Salvar"/>
+                    </x-primary-button>
                 </td>
             </tr>
         </table>
     </form>
-    <a href="/dashboard"><button>Cancelar</button></a>
+    <x-secondary-button>
+        <a href="/dashboard">Cancelar</a>
+    </x-secondary-button>
 </x-dash-layout>

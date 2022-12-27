@@ -17,6 +17,10 @@
                 <td>Vencimento Doc.:</td>
                 <td><input  wire:model="vencimento_doc" type="date" name="vencimento_doc" /></td>
             </tr>
+            <tr>
+                <td>Id Entregador:</td>
+                <td><input  wire:model="entregador_id" type="number" name="entregador_id" /></td>
+            </tr>
         </table>
     </form>
     <table>

@@ -13,6 +13,7 @@ class Vehicles extends Component
     public $placa;
     public $renavam;
     public $vencimento_doc;
+    public $entregador_id;
 
     public function mount()
     {
@@ -35,7 +36,8 @@ class Vehicles extends Component
         $novoVeiculo  = [
             "placa" => $this->placa,
             "renavam" => $this->renavam,
-            "vencimento_doc" => $this->vencimento_doc
+            "vencimento_doc" => $this->vencimento_doc,
+            "entregador_id"=>$this->entregador_id
         ];
 
         Veiculo::create($novoVeiculo);
@@ -49,6 +51,7 @@ class Vehicles extends Component
         $this->placa = '';
         $this->renavam = '';
         $this->vencimento_doc = '2000/00/00';
+        $this->entregador_id = 0;
     }
 
     public function orderByPlaca(){

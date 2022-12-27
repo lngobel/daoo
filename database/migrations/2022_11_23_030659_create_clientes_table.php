@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('cpf',20);
             $table->string('email');
             $table->string('senha');
-            $table->string('foto');
+            $table->string('foto')->default('foto.png');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

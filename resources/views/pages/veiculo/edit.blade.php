@@ -15,13 +15,21 @@
                 <td>Vencimento do Documento:</td>
                 <td><input type="date" name="vencimento_doc" value="{{$veiculo->vencimento_doc}}"/></td>
             </tr>
+            <tr>
+                <td>Id Entregador:</td>
+                <td><input type="number" name="entregador_id" value="{{$veiculo->entregador_id}}"/></td>
+            </tr>
 
             <tr align="center">
                 <td colspan="2">
+                <x-primary-button>
                     <input type="submit" name='confirmar' value="Salvar"/>
+                    </x-primary-button>
                 </td>
             </tr>
         </table>
     </form>
-    <a href="/veiculos"><button>Cancelar</button></a>
+    <x-secondary-button>
+        <a href="/veiculos">Cancelar</a>
+    </x-secondary-button>
 </x-dash-layout>

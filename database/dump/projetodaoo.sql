@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Nov-2022 às 07:24
+-- Tempo de geração: 27-Dez-2022 às 08:17
 -- Versão do servidor: 10.9.2-MariaDB
 -- versão do PHP: 8.0.12
 
@@ -33,7 +33,7 @@ CREATE TABLE `clientes` (
   `cpf` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `senha` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'foto.png',
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -44,9 +44,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `email`, `senha`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Lucas Gobel', '018.445.789.18', 'lucas@email.com', '123456', 'foto.png', 0, NULL, NULL),
-(2, 'João Silva', '099.445.789.40', 'joao@email.com', '123456', 'foto.png', 0, NULL, NULL),
-(3, 'Maria Santos', '045.478.713.47', 'maria@email.com', '123456', 'foto.png', 0, NULL, NULL);
+(1, 'Ronaldo Nazário', '999.999.999-99', 'teste@email.com', '123456', 'foto.png', 0, '2022-12-27 08:20:33', '2022-12-27 10:11:57'),
+(2, 'Romário', '111.111.111-11', 'teste@email.com', '123456', 'foto.png', 0, '2022-12-27 09:28:08', '2022-12-27 09:29:48');
 
 -- --------------------------------------------------------
 
@@ -61,7 +60,7 @@ CREATE TABLE `entregadors` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `senha` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vencimento_cnh` date NOT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'foto.png',
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -72,9 +71,9 @@ CREATE TABLE `entregadors` (
 --
 
 INSERT INTO `entregadors` (`id`, `nome`, `cpf`, `email`, `senha`, `vencimento_cnh`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Pedro Junior', '045.122.589-18', 'pedro@email.com', '123456', '0000-00-00', 'foto.png', 0, NULL, NULL),
-(2, 'Ronaldo Nazário', '075.422.589-18', 'fenomeno@email.com', '123456', '0000-00-00', 'foto.png', 0, NULL, NULL),
-(3, 'Roque Júnior', '085.422.419-48', 'roque@email.com', '123456', '0000-00-00', 'foto.png', 0, NULL, NULL);
+(1, 'Vanderlei Luxemburgo', '000.000.000-00', 'teste@email.com', '123456', '2025-02-25', 'foto.png', 0, '2022-12-27 08:19:13', '2022-12-27 08:19:13'),
+(2, 'Celso Roth', '111.222.333-44', 'teste@email.com', '123456', '2023-08-13', 'foto.png', 0, '2022-12-27 10:06:04', '2022-12-27 10:06:04'),
+(3, 'Lisca Doido', '123.456.789-10', 'teste@email.com', '123456', '2026-07-28', 'foto.png', 0, '2022-12-27 10:06:49', '2022-12-27 10:06:49');
 
 -- --------------------------------------------------------
 
@@ -183,6 +182,13 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Test User', 'test@example.com', '2022-12-27 08:18:18', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8m9DqjoaLa', '2022-12-27 08:18:18', '2022-12-27 08:18:18');
+
 -- --------------------------------------------------------
 
 --
@@ -195,6 +201,7 @@ CREATE TABLE `veiculos` (
   `renavam` int(11) NOT NULL,
   `vencimento_doc` date NOT NULL,
   `situacao_ipva` tinyint(1) NOT NULL DEFAULT 1,
+  `entregador_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -203,10 +210,12 @@ CREATE TABLE `veiculos` (
 -- Extraindo dados da tabela `veiculos`
 --
 
-INSERT INTO `veiculos` (`id`, `placa`, `renavam`, `vencimento_doc`, `situacao_ipva`, `created_at`, `updated_at`) VALUES
-(1, 'IHJ5R87', 45789451, '0000-00-00', 1, NULL, NULL),
-(2, 'IRS8R10', 5483487, '0000-00-00', 1, NULL, NULL),
-(3, 'ITW5J10', 58732408, '0000-00-00', 1, NULL, NULL);
+INSERT INTO `veiculos` (`id`, `placa`, `renavam`, `vencimento_doc`, `situacao_ipva`, `entregador_id`, `created_at`, `updated_at`) VALUES
+(1, 'IZW4G50', 45687921, '2024-09-20', 1, 1, '2022-12-27 08:41:28', '2022-12-27 08:41:28'),
+(4, 'IFW5J14', 45687922, '2025-06-15', 1, 1, '2022-12-27 10:04:54', '2022-12-27 10:04:54'),
+(5, 'IRE5L21', 74678921, '2025-09-17', 1, 2, '2022-12-27 10:07:29', '2022-12-27 10:14:59'),
+(6, 'JHJ5R87', 74687921, '2026-02-02', 1, 2, '2022-12-27 10:08:05', '2022-12-27 10:08:05'),
+(7, 'JFS5J02', 45678921, '2024-12-26', 1, 3, '2022-12-27 10:15:58', '2022-12-27 10:15:58');
 
 --
 -- Índices para tabelas despejadas
@@ -268,7 +277,8 @@ ALTER TABLE `users`
 -- Índices para tabela `veiculos`
 --
 ALTER TABLE `veiculos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `veiculos_entregador_id_foreign` (`entregador_id`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -278,7 +288,7 @@ ALTER TABLE `veiculos`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `entregadors`
@@ -314,13 +324,23 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `veiculos`
 --
 ALTER TABLE `veiculos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `veiculos`
+--
+ALTER TABLE `veiculos`
+  ADD CONSTRAINT `veiculos_entregador_id_foreign` FOREIGN KEY (`entregador_id`) REFERENCES `entregadors` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

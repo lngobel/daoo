@@ -9,4 +9,8 @@ class Entregador extends Model
 {
     use HasFactory;
     protected $fillable = ['nome', 'cpf', 'email', 'senha', 'vencimento_cnh', 'foto', 'status'];
+
+    public function veiculos(){
+        return $this->hasMany(Veiculo::class);
+    }
 }

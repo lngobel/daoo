@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('senha');
             $table->date('vencimento_cnh');
-            $table->string('foto');
+            $table->string('foto')->default('foto.png');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

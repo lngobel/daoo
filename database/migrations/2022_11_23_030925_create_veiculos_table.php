@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('veiculos', function (Blueprint $table) {
             $table->id();
+
             $table->string('placa');
             $table->integer('renavam');
             $table->date('vencimento_doc');
             $table->boolean('situacao_ipva')->default(true);
+            $table->foreignId('entregador_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
