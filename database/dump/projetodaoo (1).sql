@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Dez-2022 às 08:17
+-- Tempo de geração: 04-Jan-2023 às 07:25
 -- Versão do servidor: 10.9.2-MariaDB
 -- versão do PHP: 8.0.12
 
@@ -44,8 +44,9 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `email`, `senha`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Ronaldo Nazário', '999.999.999-99', 'teste@email.com', '123456', 'foto.png', 0, '2022-12-27 08:20:33', '2022-12-27 10:11:57'),
-(2, 'Romário', '111.111.111-11', 'teste@email.com', '123456', 'foto.png', 0, '2022-12-27 09:28:08', '2022-12-27 09:29:48');
+(1, 'Ronaldo Nazário', '999.999.999-99', 'teste@email.com', '12345678', 'foto.png', 0, '2023-01-04 08:45:06', '2023-01-04 08:45:06'),
+(2, 'Romário', '111.111.111-11', 'teste@email.com', '12345678', 'foto.png', 0, '2023-01-04 08:45:33', '2023-01-04 09:21:51'),
+(3, 'Luis Suarez', '999.999.999-10', 'teste@email.com', '12345678', 'foto.png', 0, '2023-01-04 08:46:47', '2023-01-04 08:46:47');
 
 -- --------------------------------------------------------
 
@@ -71,9 +72,9 @@ CREATE TABLE `entregadors` (
 --
 
 INSERT INTO `entregadors` (`id`, `nome`, `cpf`, `email`, `senha`, `vencimento_cnh`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Vanderlei Luxemburgo', '000.000.000-00', 'teste@email.com', '123456', '2025-02-25', 'foto.png', 0, '2022-12-27 08:19:13', '2022-12-27 08:19:13'),
-(2, 'Celso Roth', '111.222.333-44', 'teste@email.com', '123456', '2023-08-13', 'foto.png', 0, '2022-12-27 10:06:04', '2022-12-27 10:06:04'),
-(3, 'Lisca Doido', '123.456.789-10', 'teste@email.com', '123456', '2026-07-28', 'foto.png', 0, '2022-12-27 10:06:49', '2022-12-27 10:06:49');
+(1, 'Vanderlei Luxemburgo', '123.456.789-10', 'teste@email.com', '12345678', '2025-11-20', 'foto.png', 0, '2023-01-04 08:47:19', '2023-01-04 08:47:19'),
+(2, 'Celso Roth', '123.456.789-11', 'teste@email.com', '12345678', '2024-09-14', 'foto.png', 0, '2023-01-04 08:47:58', '2023-01-04 08:47:58'),
+(3, 'Lisca Doido', '000.000.000-00', 'teste@email.com', '12345678', '2026-02-10', 'foto.png', 0, '2023-01-04 08:48:39', '2023-01-04 08:48:39');
 
 -- --------------------------------------------------------
 
@@ -148,6 +149,14 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `personal_access_tokens`
+--
+
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(1, 'App\\Models\\User', 6, 'lucasgobel@gmail.com', 'd96bdade7fb6340e4c2c1e8312adc6f1e49d3a6c431c85adccd31bfc71b2568a', '[\"is-admin\"]', NULL, NULL, '2023-01-04 09:08:20', '2023-01-04 09:08:20'),
+(2, 'App\\Models\\User', 6, 'lucasgobel@gmail.com', 'e619765cc6aaee838baaab6835166edc0efa04cd9b2504cc3d90ce3a1ecf1fff', '[\"is-admin\"]', '2023-01-04 09:21:51', NULL, '2023-01-04 09:13:41', '2023-01-04 09:21:51');
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +186,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -186,8 +196,14 @@ CREATE TABLE `users` (
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Test User', 'test@example.com', '2022-12-27 08:18:18', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8m9DqjoaLa', '2022-12-27 08:18:18', '2022-12-27 08:18:18');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `is_admin`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dr. Bernie Skiles', 'wyman.vivienne@example.org', '2023-01-04 08:43:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 'o3JTKR2Iom', '2023-01-04 08:43:26', '2023-01-04 08:43:26'),
+(2, 'Prof. Lexus Durgan', 'eliane.pollich@example.net', '2023-01-04 08:43:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, '895nid4OLj', '2023-01-04 08:43:26', '2023-01-04 08:43:26'),
+(3, 'Ola Hammes', 'kohler.cali@example.org', '2023-01-04 08:43:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 'eaRFMXdjzM', '2023-01-04 08:43:26', '2023-01-04 08:43:26'),
+(4, 'Ms. Fabiola Stracke DVM', 'norberto83@example.net', '2023-01-04 08:43:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 'LlqQT85UKG', '2023-01-04 08:43:26', '2023-01-04 08:43:26'),
+(5, 'Dr. Lelia Walter', 'lisa99@example.com', '2023-01-04 08:43:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 'KIT9K6FIcG', '2023-01-04 08:43:26', '2023-01-04 08:43:26'),
+(6, 'Lucas Gobel', 'lucasgobel@gmail.com', NULL, '$2y$10$McZvw3D/ciwFu2djlWSza.9xzrcq8I9ur/6TsFiaupr/oEc5LLrW.', 1, NULL, '2023-01-04 08:53:47', '2023-01-04 08:53:47'),
+(7, 'Gilmar Santos', 'teste@gmail.com', NULL, '$2y$10$7oBY9.PX9g.2lxHpMIPVPueah/UxUQIR7axojX/GA5COQY.YZlerW', 0, NULL, '2023-01-04 08:54:23', '2023-01-04 08:54:23');
 
 -- --------------------------------------------------------
 
@@ -211,11 +227,12 @@ CREATE TABLE `veiculos` (
 --
 
 INSERT INTO `veiculos` (`id`, `placa`, `renavam`, `vencimento_doc`, `situacao_ipva`, `entregador_id`, `created_at`, `updated_at`) VALUES
-(1, 'IZW4G50', 45687921, '2024-09-20', 1, 1, '2022-12-27 08:41:28', '2022-12-27 08:41:28'),
-(4, 'IFW5J14', 45687922, '2025-06-15', 1, 1, '2022-12-27 10:04:54', '2022-12-27 10:04:54'),
-(5, 'IRE5L21', 74678921, '2025-09-17', 1, 2, '2022-12-27 10:07:29', '2022-12-27 10:14:59'),
-(6, 'JHJ5R87', 74687921, '2026-02-02', 1, 2, '2022-12-27 10:08:05', '2022-12-27 10:08:05'),
-(7, 'JFS5J02', 45678921, '2024-12-26', 1, 3, '2022-12-27 10:15:58', '2022-12-27 10:15:58');
+(1, 'IZW4G50', 45687921, '2025-02-02', 1, 1, '2023-01-04 08:49:03', '2023-01-04 08:49:03'),
+(2, 'IFW5J14', 74678921, '2023-10-13', 1, 2, '2023-01-04 08:49:28', '2023-01-04 08:49:28'),
+(3, 'JHJ5R87', 45678921, '2026-05-28', 1, 3, '2023-01-04 08:49:45', '2023-01-04 08:49:45'),
+(4, 'JFS5J02', 45687922, '2023-12-31', 1, 2, '2023-01-04 08:50:09', '2023-01-04 08:50:09'),
+(5, 'IRE5L21', 74687921, '2024-12-11', 1, 2, '2023-01-04 08:50:26', '2023-01-04 08:50:26'),
+(6, 'IFW5J17', 45687977, '2026-08-19', 1, 3, '2023-01-04 08:50:50', '2023-01-04 08:50:50');
 
 --
 -- Índices para tabelas despejadas
@@ -288,7 +305,7 @@ ALTER TABLE `veiculos`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `entregadors`
@@ -312,7 +329,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de tabela `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
@@ -324,13 +341,13 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `veiculos`
 --
 ALTER TABLE `veiculos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para despejos de tabelas
