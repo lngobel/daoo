@@ -13,12 +13,12 @@ class ClienteController extends Controller
         return response()->json(Cliente::all());
     }
 
-    public function show($id){
+    public function show(Cliente $cliente){
         try{
-            return response()->json(Cliente::findOrFail($id));
+            return response()->json($cliente);
         }catch(\Exception $error){
             $responseError = [
-                'Error' => "O cliente com id:$id não foi encontrado!",
+                'Error' => "Cliente não encontrado!",
                 'Exception' => $error->getMessage(), 
             ];
             $statusHttp = 404;
@@ -45,15 +45,14 @@ class ClienteController extends Controller
         }
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Cliente $cliente)
     {
         try{
             $data = $request->all();
-            $newCliente = Cliente::findOrFail($id);
-            $newCliente->update($data);
+            $cliente->update($data);
             return response()->json([
                 'message'=>'Cliente atualizado com sucesso!',
-                'cliente'=>$newCliente
+                'cliente'=>$cliente
             ]);
         }catch(Exception $error){
             return response()->json([
@@ -63,11 +62,15 @@ class ClienteController extends Controller
         }
     }
 
-    public function remove($id)
+    public function destroy(Cliente $cliente)
     {
         try{
-            if(Cliente::findOrFail($id)->delete())
-            return response()->json(["msg"=>"Cliente com id:$id removido com sucesso!"]);
+            if(!$cliente->delete())
+                throw new \Exception("Erro não detectado, tente mais tarde!");
+            return response()->json([
+                "msg" => "Cliente excluído.",
+                "veiculo" => $cliente
+            ]);
         }catch(Exception $error){
             return response()->json([
                 'Error' => "Erro ao excluir cliente",

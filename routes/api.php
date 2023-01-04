@@ -23,24 +23,34 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/veiculo',[VeiculoController::class,'index'])->middleware('auth:sanctum');
-Route::get('/veiculo/{id}',[VeiculoController::class,'show'])->middleware('auth:sanctum');
-Route::post('/veiculo',[VeiculoController::class,'store'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::put('/veiculo/{id}',[VeiculoController::class,'update'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::delete('/veiculo/{id}',[VeiculoController::class,'remove'])->middleware(['auth:sanctum', 'ability:is-admin']);
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('veiculos',VeiculoController::class);
+    Route::middleware(['ability:is-admin'])->group(function(){
+        Route::post('/veiculos',[VeiculoController::class,'store']);
+        Route::put('/veiculos/{veiculo}',[VeiculoController::class,'update']);
+        Route::delete('/veiculos/{veiculo}',[VeiculoController::class,'destroy']);
+    });
+});
 
-Route::get('/cliente',[ClienteController::class,'index']);
-Route::get('/cliente/{id}',[ClienteController::class,'show']);
-Route::post('/cliente',[ClienteController::class,'store'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::put('/cliente/{id}',[ClienteController::class,'update'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::delete('/cliente/{id}',[ClienteController::class,'remove'])->middleware(['auth:sanctum', 'ability:is-admin']);
 
-Route::get('/entregador',[EntregadorController::class,'index']);
-Route::get('/entregador/{id}',[EntregadorController::class,'show']);
-Route::post('/entregador',[EntregadorController::class,'store'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::put('/entregador/{id}',[EntregadorController::class,'update'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::delete('/entregador/{id}',[EntregadorController::class,'remove'])->middleware(['auth:sanctum', 'ability:is-admin']);
-Route::get('/entregador/{entregador}/veiculos',[EntregadorController::class,'veiculos'])->name('entregadores.veiculos');
+Route::apiResource('clientes',ClienteController::class);
+Route::middleware(['auth:sanctum', 'ability:is-admin'])->group(function(){
+    Route::post('/clientes',[ClienteController::class,'store']);
+    Route::put('/clientes/{cliente}',[ClienteController::class,'update']);
+    Route::delete('/clientes/{cliente}',[ClienteController::class,'destroy']);
+});
+
+
+Route::apiResource('entregadores',EntregadorController::class)->parameters([
+    'entregadores'=>'entregador'
+]);
+Route::middleware(['auth:sanctum', 'ability:is-admin'])->group(function(){
+    Route::post('/entregadores',[EntregadorController::class,'store']);
+    Route::put('/entregadores/{entregador}',[EntregadorController::class,'update']);
+    Route::delete('/entregadores/{entregador}',[EntregadorController::class,'destroy']);
+    Route::get('/entregadores/{entregador}/veiculos',[EntregadorController::class,'veiculos']);
+});
+
 
 Route::apiResource('users',UserController::class);
 Route::post('login',[LoginController::class,'login']);

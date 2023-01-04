@@ -13,12 +13,12 @@ class EntregadorController extends Controller
         return response()->json(Entregador::all());
     }
 
-    public function show($id){
+    public function show(Entregador $entregador){
         try{
-            return response()->json(Entregador::findOrFail($id));
+            return response()->json($entregador);
         }catch(\Exception $error){
             $responseError = [
-                'Error' => "O entregador com id:$id não foi encontrado!",
+                'Error' => "Entregador não encontrado!",
                 'Exception' => $error->getMessage(), 
             ];
             $statusHttp = 404;
@@ -45,15 +45,14 @@ class EntregadorController extends Controller
         }
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Entregador $entregador)
     {
         try{
             $data = $request->all();
-            $newEntregador = Entregador::findOrFail($id);
-            $newEntregador->update($data);
+            $entregador->update($data);
             return response()->json([
                 'message'=>'Entregador atualizado com sucesso!',
-                'entregador'=>$newEntregador
+                'entregador'=>$entregador
             ]);
         }catch(Exception $error){
             return response()->json([
@@ -63,11 +62,15 @@ class EntregadorController extends Controller
         }
     }
 
-    public function remove($id)
+    public function destroy(Entregador $entregador)
     {
         try{
-            if(Entregador::findOrFail($id)->delete())
-            return response()->json(["msg"=>"Entregador com id:$id removido com sucesso!"]);
+            if(!$entregador->delete())
+                throw new \Exception("Erro não detectado, tente mais tarde!");
+            return response()->json([
+                "msg" => "Entregador excluído.",
+                "entregador" => $entregador
+            ]);
         }catch(Exception $error){
             return response()->json([
                 'Error' => "Erro ao excluir entregador",

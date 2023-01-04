@@ -13,12 +13,12 @@ class VeiculoController extends Controller
         return response()->json(Veiculo::all());
     }
 
-    public function show($id){
+    public function show(Veiculo $veiculo){
         try{
-            return response()->json(Veiculo::findOrFail($id));
+            return response()->json($veiculo);
         }catch(\Exception $error){
             $responseError = [
-                'Error' => "O veículo com id:$id não foi encontrado!",
+                'Error' => "Veículo não encontrado!",
                 'Exception' => $error->getMessage(), 
             ];
             $statusHttp = 404;
@@ -45,15 +45,14 @@ class VeiculoController extends Controller
         }
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Veiculo $veiculo)
     {
         try{
             $data = $request->all();
-            $newVeiculo = Veiculo::findOrFail($id);
-            $newVeiculo->update($data);
+            $veiculo->update($data);
             return response()->json([
                 'message'=>'Veículo atualizado com sucesso!',
-                'veículo'=>$newVeiculo
+                'veículo'=>$veiculo
             ]);
         }catch(Exception $error){
             return response()->json([
@@ -63,11 +62,15 @@ class VeiculoController extends Controller
         }
     }
 
-    public function remove($id)
+    public function destroy(Veiculo $veiculo)
     {
         try{
-            if(Veiculo::findOrFail($id)->delete())
-            return response()->json(["msg"=>"Veículo com id:$id removido com sucesso!"]);
+            if(!$veiculo->delete())
+                throw new \Exception("Erro não detectado, tente mais tarde!");
+            return response()->json([
+                "msg" => "Veículo excluído.",
+                "veiculo" => $veiculo
+            ]);
         }catch(Exception $error){
             return response()->json([
                 'Error' => "Erro ao excluir veículo",
